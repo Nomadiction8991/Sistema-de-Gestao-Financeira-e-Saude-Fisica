@@ -1,0 +1,110 @@
+body, ul {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    overflow:hidden;
+    width:100vw;
+    height:100vh;
+}
+.cabecalho {
+    position:absolute;
+    height:50px;
+    background-color:#195717;
+    width:100%;
+    float:left;
+    z-index:10;
+}
+#menu_usuario{
+    display: none;
+    position:absolute;
+    margin-top:49px;
+    width:99.8vw;
+    background-color:#195717;
+    height:calc(100vh - 49px);
+    z-index:8;
+    text-align:center;
+}
+#menu_usuario ul {
+    list-style-type:none;
+    padding:0;
+    box-sizing: border-box;
+}
+#menu_usuario ul li{
+    box-sizing: border-box;
+
+}
+#menu_usuario ul li a {
+    display:block;
+    padding:10px 15px; 
+    text-decoration:none; 
+    color:#fff;
+    text-align:left;
+    font-weight:300;
+}
+#menu_usuario ul li img{
+    Display:inline-block;
+    float:left;
+    height:35px;
+    box-sizing: border-box;
+    margin-right:10px;
+}
+.logout_img{
+    padding:5px;
+}
+iframe{
+    position:absolute;
+    margin-top:50px;
+    border:none;
+    width: 100%;
+    height:calc(100% - 50px);
+    z-index:0;
+}
+.logomarca{
+    width:calc(100% - 50px);
+    height:100%;
+    text-align:center;
+    float:right;
+}
+.logomarca img{
+    height:50px;
+    width:125px;
+    box-sizing: border-box;
+    padding:5px;
+    margin-left:-50px;
+}
+#menu_usuario.active {
+    display: block;
+}
+#usuario {
+    width:50px;
+    padding:8px;
+    box-sizing: border-box;
+}
+#menu_usuario .menu{
+    border-radius:25px 25px 0px 0px;
+    background-color:#247f21;
+    padding:10px;
+    box-sizing: border-box;
+}
+#menu_usuario .menu hr{
+    padding:0;
+    margin:0;
+    border:none;
+    border:0.5px solid #195717;
+    box-shadow:0px 0px 5px #195717;
+    margin:8px 0;
+}
+#menu_usuario h5{
+    margin:0;
+    padding:0;
+    color:#fff;
+    font-weight:300;
+    Margin-bottom:30px;
+}
+#menu_usuario h3{
+    margin:0;
+    color:#fff;
+    padding:0;
+    font-weight:600;
+    Margin-top:30px;
+}
