@@ -1,4 +1,5 @@
 <?php
+
 // Iniciar a sessão
 session_start();
 
@@ -10,51 +11,64 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 
 // Se chegou até aqui, o usuário está logado, e você pode continuar com o conteúdo da página.
+
+
+
+include_once('../conexao.php');
+
+// Consulta de compras pendentes
+$consultaPendentes = $conexao->query("SELECT * FROM compras WHERE concluido=0");
+$comprasPendentes = $consultaPendentes->fetchAll(PDO::FETCH_ASSOC);
+
+// Consulta de compras concluídas
+$consultaConcluidas = $conexao->query("SELECT * FROM compras WHERE concluido=1");
+$comprasConcluidas = $consultaConcluidas->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anvy</title>
     <link rel="stylesheet" type="text/css" href="estilo.css">
+    <title>Sua Página</title>
 </head>
 <body>
-    <header class="cabecalho">
-        <img id="usuario" src="imagens/menu_usuario.png">
-        <section class="logomarca">
-            <img src="imagens/logomarca.png">
-        </section>
-    </header>
-    <section id="menu_usuario">
-        <h3>Weverton</h3>
-        <h5>Weverton.anvy@gmail.com</h5>
-        <ul class="menu">
-            <li><img class="usuario_img" src="imagens/usuario.png"><a href="#" target="iframe">Meu Cadastro</a></li>
-            <hr>
-            <li><img class="logout_img" src="imagens/logout.png"><a href="encerrar_sessao/index.php">Encerrar Sessão</a></li>
-        </ul>
+    <section class="cabecalho">
+        <a href="adicionar/index.php"><img class="adicionar" src="../imagens/adicionar.svg"></a>
     </section>
-    <iframe name="iframe"></iframe>
-    
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var toggleBtn = document.getElementById('usuario');
-    var menu = document.getElementById('menu_usuario');
 
-    toggleBtn.addEventListener('click', function() {
-        menu.classList.toggle('active');
-    });
+    <section class="lista">
+        <h4>Pendentes</h4>
+        <?php if (isset($comprasPendentes) && count($comprasPendentes) > 0): ?>
+            <ol>
+                <?php foreach ($comprasPendentes as $compra): ?>
+                    <li>
+                    <a href="concluir.php?descricao=<?php echo urlencode($compra['descricao']); ?>">✅</a>
+                    <?php echo $compra['descricao']; ?>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        <?php else: ?>
+            <p>Compras em dia.</p>
+        <?php endif; ?>
+    </section>
 
-    var menuItems = document.querySelectorAll('#menu_usuario ul li a');
-
-    menuItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-            menu.classList.remove('active');
-        });
-    });
-});
-
-</script>
+    <section class="lista_concluidos">
+        <h4>Concluídos</h4>
+        <?php if (isset($comprasConcluidas) && count($comprasConcluidas) > 0): ?>
+            <ol>
+                <?php foreach ($comprasConcluidas as $compraConcluida): ?>
+                    <li>
+                        <a href="excluir.php?descricao=<?php echo urlencode($compraConcluida['descricao']); ?>">❌<a>
+                        <a href="desfazer.php?descricao=<?php echo urlencode($compraConcluida['descricao']); ?>">➖<a>
+                        <s><?php echo $compraConcluida['descricao']; ?></s>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        <?php else: ?>
+            <p>Nenhuma compra concluída.</p>
+        <?php endif; ?>
+    </section>
 </body>
 </html>
